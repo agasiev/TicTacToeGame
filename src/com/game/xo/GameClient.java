@@ -3,6 +3,7 @@ package com.game.xo;
 import java.net.*;
 import java.io.*;
 import java.util.Scanner;
+import com.game.xo.AESCoder;
 
 public class GameClient extends Thread {
     BufferedWriter writer;
@@ -30,10 +31,10 @@ public class GameClient extends Thread {
 
     private void putCommand(GameCommands command, String params) {
         try {
-            writer.write(command.getValue());
+            writer.write(AESCoder.encryptAES(command.getValue()));
             writer.newLine();
             if (command.isNeedParams()) {
-                writer.write(params);
+                writer.write(AESCoder.encryptAES(params));
                 writer.newLine();
             }
             writer.flush();
@@ -60,7 +61,7 @@ public class GameClient extends Thread {
                 try
                 {
 //                    Runtime.getRuntime().exec("clear");
-                    String line = reader.readLine();
+                    String line = AESCoder.decryptAES(reader.readLine());
                     GameCommands command = GameCommands.getCommand(line);
                     String params = "";
 
@@ -71,7 +72,7 @@ public class GameClient extends Thread {
                     }
 
                     if (command.isNeedParams()) {
-                        params = reader.readLine();
+                        params = AESCoder.decryptAES(reader.readLine());
                     }
 
                     switch (command) {
