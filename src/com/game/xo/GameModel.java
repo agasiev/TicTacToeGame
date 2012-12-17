@@ -138,14 +138,43 @@ public class GameModel {
         if (checkDeadHeat()) return false;
         if (checkPreWinningSituation()) return true;
 
+        if (movesCount == 3 && xo_matrix[1][1] == Cell.CellO) {
+            if (xo_matrix[0][0] == Cell.CellX) xo_matrix[2][2] = Cell.CellO;
+            else if (xo_matrix[2][2] == Cell.CellX) xo_matrix[0][0] = Cell.CellO;
+            else if (xo_matrix[0][2] == Cell.CellX) xo_matrix[2][0] = Cell.CellO;
+            else if (xo_matrix[2][0] == Cell.CellX) xo_matrix[0][2] = Cell.CellO;
+            movesCount++;
+            return true;
+        }
+
+        if (xo_matrix[0][0] == Cell.CellNone) {
+            xo_matrix[0][0] = Cell.CellO;
+            movesCount++;
+            return true;
+        }
+        if (xo_matrix[0][2] == Cell.CellNone) {
+            xo_matrix[0][2] = Cell.CellO;
+            movesCount++;
+            return true;
+        }
+        if (xo_matrix[2][0] == Cell.CellNone) {
+            xo_matrix[2][0] = Cell.CellO;
+            movesCount++;
+            return true;
+        }
+        if (xo_matrix[2][2] == Cell.CellNone) {
+            xo_matrix[2][2] = Cell.CellO;
+            movesCount++;
+            return true;
+        }
+
         while (true) {
             int n = (int)(Math.random() * 9);
             if (xo_matrix[n/3][n%3] == Cell.CellNone) {
                 xo_matrix[n/3][n%3] = Cell.CellO;
-                break;
+                movesCount++;
+                return true;
             }
         }
-
-        return true;
     }
 }

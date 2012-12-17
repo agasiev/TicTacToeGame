@@ -5,7 +5,6 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import com.game.xo.AESCoder;
 
 public class GameServerInstance extends Thread {
     static int connectionsCount = 0;
@@ -37,10 +36,10 @@ public class GameServerInstance extends Thread {
 
     private void putCommand(GameCommands command, String params) {
         try {
-            writer.write(AESCoder.encryptAES(command.getValue()));
+            writer.write(command.getValue());
             writer.newLine();
             if (command.isNeedParams()) {
-                writer.write(AESCoder.encryptAES(params));
+                writer.write(params);
                 writer.newLine();
             }
             writer.flush();
@@ -63,7 +62,7 @@ public class GameServerInstance extends Thread {
         {
             try
             {
-                String line = AESCoder.decryptAES(reader.readLine());
+                String line = reader.readLine();
                 GameCommands command = GameCommands.getCommand(line);
                 String params = "";
 
@@ -73,7 +72,7 @@ public class GameServerInstance extends Thread {
                 }
 
                 if (command.isNeedParams()) {
-                    params = AESCoder.decryptAES(reader.readLine());
+                    params = reader.readLine();
                 }
 
                 System.out.println("[Command]: "+command.getValue());
