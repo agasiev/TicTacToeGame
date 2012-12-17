@@ -6,8 +6,6 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import com.game.xo.*;
-
 public class GameServerInstance extends Thread {
     static int connectionsCount = 0;
     BufferedWriter writer;
@@ -113,8 +111,10 @@ public class GameServerInstance extends Thread {
                         int x = values.get(0)-1;
                         int y = values.get(1)-1;
 
-                        if (x < 0 || x >= 3 || y < 0 || y >= 3)
+                        if (x < 0 || x >= 3 || y < 0 || y >= 3) {
                             putCommand(GameCommands.BAD_INPUT);
+                            break;
+                        }
 
                         boolean result = model.makePlayerMove(x, y);
                         GameModel.Winner winner = model.checkWinnings();

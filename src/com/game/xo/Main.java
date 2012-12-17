@@ -10,8 +10,7 @@ public class Main {
             clientConnection.start();
         }
         catch (Exception e) {
-            System.out.println(e.getMessage());
-            e.printStackTrace();
+            System.out.println("[Error]: " + e.getMessage());
         }
     }
 
@@ -21,8 +20,7 @@ public class Main {
             serverConnection.start();
         }
         catch (Exception e) {
-            System.out.println(e.getMessage());
-            e.printStackTrace();
+            System.out.println("[Error]: " + e.getMessage());
         }
     }
 

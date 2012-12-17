@@ -18,6 +18,8 @@ public class GameServerManager extends Thread {
 
     public void run()
     {
+        if (serverSocket == null) return;
+
         while(true)
         {
             try

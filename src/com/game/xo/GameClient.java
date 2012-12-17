@@ -3,7 +3,6 @@ package com.game.xo;
 import java.net.*;
 import java.io.*;
 import java.util.Scanner;
-import com.game.xo.*;
 
 public class GameClient extends Thread {
     BufferedWriter writer;
@@ -21,8 +20,7 @@ public class GameClient extends Thread {
             socket.setSoTimeout(60000);
         }
         catch (Exception e) {
-            System.out.println(e.getMessage());
-            e.printStackTrace();
+            System.out.println("[Error]: " + e.getMessage());
         }
     }
 
@@ -42,16 +40,17 @@ public class GameClient extends Thread {
         }
         catch (SocketTimeoutException e)
         {
-            System.out.println(e.getMessage());
+            System.out.println("[Error]: " + e.getMessage());
         }
         catch(IOException e)
         {
-            e.printStackTrace();
+            System.out.println("[Error]: " + e.getMessage());
         }
     }
 
     public void run()
     {
+        if (socket == null) return;
         boolean doNotInput = false;
         boolean disconnected = false;
         try {
@@ -86,7 +85,7 @@ public class GameClient extends Thread {
                         }
                         case PRINT_MATRIX: {
                             for (int i = 0; i < 3; i++) {
-                                System.out.format(" %c | %c | %c \n", params.charAt(i * 3 + 0), params.charAt(i * 3 + 1), params.charAt(i * 3 + 2));
+                                System.out.format(" %c | %c | %c \n", params.charAt(i * 3), params.charAt(i * 3 + 1), params.charAt(i * 3 + 2));
                                 if (i != 2)
                                     System.out.println("-----------");
                             }
@@ -127,7 +126,7 @@ public class GameClient extends Thread {
                     if (!doNotInput) {
                         Scanner input = new Scanner(System.in);
 
-                        int x = 0, y = 0;
+                        int x, y;
 
                         System.out.println("Make movement (x, y):");
 
@@ -135,7 +134,6 @@ public class GameClient extends Thread {
                         y = input.nextInt();
 
                         params = x + " " + y;
-                        System.out.println("Param: " + params);
 
                         putCommand(GameCommands.PLAYER_MOVE, params);
                     }
@@ -154,11 +152,11 @@ public class GameClient extends Thread {
         catch (SocketTimeoutException e)
         {
             putCommand(GameCommands.DISCONNECT);
-            System.out.println(e.getMessage());
+            System.out.println("[Timeout]: " + e.getMessage());
         }
         catch(IOException e)
         {
-            System.out.println(e.getMessage());
+            System.out.println("[Error]: " + e.getMessage());
         }
     }
 }
