@@ -1,5 +1,7 @@
 package com.game.xo;
 
+import java.util.Scanner;
+
 public class Main {
     static final int serverPort = 11098;
     static final String serverHost = "localhost";
@@ -25,7 +27,18 @@ public class Main {
     }
 
     public static void main(String[] args) {
-//        makeServer();
-        makeClient();
+        try {
+            Scanner input = new Scanner(System.in);
+
+            System.out.println("Please specify task:\n1. Start server.\n2. Start client.");
+
+            int value = input.nextInt();
+            if (value == 1) makeServer();
+            else if (value == 2) makeClient();
+            else System.out.println("Wrong input!");
+        }
+        catch (Exception e) {
+            System.out.println("[Error]: " + e.getMessage());
+        }
     }
 }
