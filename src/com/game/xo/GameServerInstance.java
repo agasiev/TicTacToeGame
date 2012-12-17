@@ -88,12 +88,6 @@ public class GameServerInstance extends Thread {
                         putCommand(GameCommands.PRINT_MATRIX, model.oneLineMatrix());
                         break;
                     }
-                    case PUBLIC_KEY: {
-                        break;
-                    }
-                    case PRINT_MATRIX: {
-                        break;
-                    }
                     case PLAYER_MOVE: {
                         Pattern p = Pattern.compile("[0-9]+");
                         Matcher m = p.matcher(params);
@@ -136,16 +130,6 @@ public class GameServerInstance extends Thread {
 
                         putCommand(GameCommands.PRINT_MATRIX, model.oneLineMatrix());
 
-                        break;
-                    }
-                    case CLIENT_WIN: {
-
-                        break;
-                    }
-                    case SERVER_WIN: {
-                        break;
-                    }
-                    case MESSAGE: {
                         break;
                     }
                 }

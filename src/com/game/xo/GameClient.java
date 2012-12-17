@@ -80,9 +80,6 @@ public class GameClient extends Thread {
                             disconnected = true;
                             break;
                         }
-                        case PUBLIC_KEY: {
-                            break;
-                        }
                         case PRINT_MATRIX: {
                             for (int i = 0; i < 3; i++) {
                                 System.out.format(" %c | %c | %c \n", params.charAt(i * 3), params.charAt(i * 3 + 1), params.charAt(i * 3 + 2));
@@ -112,14 +109,8 @@ public class GameClient extends Thread {
                             disconnected = true;
                             break;
                         }
-                        case MESSAGE: {
-                            break;
-                        }
                         case BAD_INPUT: {
                             System.out.println("Bad input.");
-                            break;
-                        }
-                        case OK: {
                             break;
                         }
                     }
@@ -139,8 +130,7 @@ public class GameClient extends Thread {
                     }
                 }
                 catch (Exception e) {
-                    System.out.println(e.getMessage());
-                    e.printStackTrace();
+                    System.out.println("[Error]: " + e.getMessage());
                     break;
                 }
             }
